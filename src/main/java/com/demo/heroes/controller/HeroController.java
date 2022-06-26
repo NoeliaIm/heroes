@@ -58,4 +58,8 @@ public class HeroController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<Hero>> getHeroesByNameLike(@PathVariable("name") String name) {
+        return ResponseEntity.ok(heroService.getHeroesByNameLike(name));
+    }
 }

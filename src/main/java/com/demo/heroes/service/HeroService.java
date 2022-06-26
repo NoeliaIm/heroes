@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -23,23 +24,39 @@ public class HeroService {
 
 
     public Long insertNewHero(HeroRequest heroRequest) {
-        return null;
+        Hero hero = new Hero();
+        hero.setName(heroRequest.getName());
+        hero = heroRepository.save(hero);
+        return hero.getId();
     }
 
     public Hero updateHero(Long id, HeroRequest heroRequest) {
-        return  null;
+       Optional<Hero> heroDB = heroRepository.findById(id);
+
+       if(heroDB.isEmpty()){
+           throw new IllegalArgumentException("No existe el héroe con id: " + id);
+       }
+
+       Hero heroUpdate = heroDB.get();
+       heroUpdate.setName(heroRequest.getName());
+         return heroRepository.save(heroUpdate);
     }
 
     public void deleteHero(Long id) {
-
+        heroRepository.deleteById(id);
     }
 
     public Hero getHero(Long id)  {
-        return  null;
+        return heroRepository.findById(id).orElse(null);
     }
 
     public List<Hero> getAllHeroes() {
-        return null;
+
+        return  heroRepository.findAll();
     }
 
+
+    public List<Hero> getHeroesByNameLike(String name) {
+        return heroRepository.findByNameContaining(name);
+    }
 }
