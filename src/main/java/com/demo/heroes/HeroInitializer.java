@@ -4,7 +4,6 @@ import com.demo.heroes.domain.Hero;
 import com.demo.heroes.repository.HeroRepository;
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class HeroInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         log.info("Creando datos");
         Faker faker = new Faker();
